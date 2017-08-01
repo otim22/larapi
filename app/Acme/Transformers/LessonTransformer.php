@@ -3,6 +3,11 @@ namespace Acme\Transformers;
 
 class LessonTransformer extends Transformer {
 
+	/**
+	 * customisez data
+	 * @param type $lesson 
+	 * @return array
+	 */
 	public function transform($lesson)
     {
         return [

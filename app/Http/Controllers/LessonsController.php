@@ -17,6 +17,8 @@ class LessonsController extends ApiController
     function __construct(LessonTransformer $lessonTransformer)
     {
         $this->lessonTransformer = $lessonTransformer;
+
+        $this->middleware('auth')->except(['index', 'show']);
     }
     /**
      * Display a listing of the resource.
@@ -48,10 +50,19 @@ class LessonsController extends ApiController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        if (! Input::get('title') or ! Input::get('body'))
+        {
+            $this->respondFailed('Parameters failed validation for a lesson.');
+        }
+
+        Lesson::create(Input::all());
+
+        return $this->respondCreated('Lesson successfully created');
     }
+
+    
 
     /**
      * Display the specified resource.
