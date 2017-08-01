@@ -5,7 +5,7 @@ use Response;
 use Illuminate\Http\Response as IlluminateResponse;
 
 class ApiController extends Controller {
-    
+
 	protected $statusCode= IlluminateResponse::HTTP_OK;
 
     /**
@@ -66,6 +66,6 @@ class ApiController extends Controller {
     public function respondFailed($message)
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY)
-                        ->respondWithError($message);
+                    ->respondWithError($message);
     }
 }

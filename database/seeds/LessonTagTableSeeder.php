@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
-
 use App\Tag;
 use App\Lesson;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
 
 class LessonTagTableSeeder extends Seeder
 {
@@ -21,7 +20,7 @@ class LessonTagTableSeeder extends Seeder
         $lessonIds = Lesson::pluck('id')->all();
  
         foreach (range(1, 30) as $index) {
-        	DB::table('lessons_tags')->insert([
+        	DB::table('lesson_tag')->insert([
                 'lesson_id' => $faker->randomElement($lessonIds),
                 'tag_id' => $faker->randomElement($tagIds)
             ]);

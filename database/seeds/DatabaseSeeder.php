@@ -7,7 +7,7 @@ class DatabaseSeeder extends Seeder
     private $tables = [
         'lessons',
         'tags',
-        'lessons_tags'
+        'lesson_tag'
     ];
     /**
      * Run the database seeds.

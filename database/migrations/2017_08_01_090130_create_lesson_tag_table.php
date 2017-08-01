@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLessonsTagsTable extends Migration
+class CreateLessonTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLessonsTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lessons_tags', function (Blueprint $table) {
+        Schema::create('lesson_tag', function (Blueprint $table) {
             $table->increments('id');
             
             $table->integer('lesson_id')->unsigned()->index();
@@ -30,6 +30,8 @@ class CreateLessonsTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons_tags');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::dropIfExists('lesson_tag');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

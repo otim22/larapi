@@ -20,6 +20,7 @@ class LessonsController extends ApiController
 
         $this->middleware('auth')->except(['index', 'show']);
     }
+    
     /**
      * Display a listing of the resource.
      *
