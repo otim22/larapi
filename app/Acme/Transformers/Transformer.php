@@ -2,9 +2,9 @@
 namespace Acme\Transformers;
 
 abstract class Transformer {
+	
 	/*
 	* Tansform a collection of lessons
-	* 
 	* @param $lessons
 	* @return array
 	*/
