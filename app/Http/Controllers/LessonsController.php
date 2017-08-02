@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\ApiController;
 use Acme\Transformers\LessonTransformer;
 
@@ -28,11 +29,26 @@ class LessonsController extends ApiController
      */
     public function index()
     {
-        $lessons = Lesson::all(); 
+        $limit = Input::get('limit') ?: 3;
+        $lessons = Lesson::paginate($limit);
 
         return $this->respond([
-            'data' => $this->lessonTransformer->transformCollection($lessons->all())
+            'data' => $this->lessonTransformer->transformCollection($lessons->all())   
         ]);
+    }
+
+    public function respondWithPagination($lessons, $data)
+    {
+        $data = array_merge($data, [
+            'paginator' => [
+                'total_count' => $lessons->count(),
+                'Total_pages' => ceil($lessons->count() / $lessons->perPage()),
+                'current_page' => $lessons->currentPage(),
+                'limit' => $lessons->perPage()
+            ]      
+        ]);
+
+        return $this->respond($data);
     }
 
     /**

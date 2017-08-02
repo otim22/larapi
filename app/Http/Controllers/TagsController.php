@@ -47,7 +47,7 @@ class TagsController extends ApiController
 
     public function getTags($lessonId)
     {
-        $tags = $lessonId ? Lesson::find($lessonId)->tags : Tag::all();
+        $tags = $lessonId ? Lesson::findOrFail($lessonId)->tags : Tag::all();
 
         return $tags;
     }

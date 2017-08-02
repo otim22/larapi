@@ -28,16 +28,52 @@ class ApiController extends Controller {
         return $this;
     }
 
+    /**
+     * return not found
+     * @param type|string $message 
+     * @return type
+     */
     public function respondNotFound($message = 'Not fount!')
     {
     	return $this->setStatusCode(IlluminateResponse::HTTP_NOT_FOUND)->respondWithError($message);
     }
 
+    /**
+     * 
+     * @param type $data 
+     * @param type|array $headers 
+     * @return type
+     */
     public function respond($data, $headers = [])
     {
     	return Response::json($data, $this->getStatusCode(), $headers);
     }
 
+    /**
+     * merges two arrays
+     * @param type Paginator $lessons 
+     * @param type $data 
+     * @return type
+     */
+    public function respondWithPagination(Paginator $lessons, $data)
+    {
+        $data = array_merge($data, [
+            'paginator' => [
+                'total_count' => $lessons->count(),
+                'Total_pages' => ceil($lessons->count() / $lessons->perPage()),
+                'current_page' => $lessons->currentPage(),
+                'limit' => $lessons->perPage()
+            ]      
+        ]);
+
+        return $this->respond($data);
+    }
+
+    /**
+     * Description
+     * @param type $message 
+     * @return type
+     */
     public function respondWithError($message)
     {
     	return $this->respond([
